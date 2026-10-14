@@ -21,9 +21,7 @@ box-sizing:border-box}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0}
 body{background:var(--bg);color:var(--ink);font:16px/1.4 system-ui,-apple-system,"SF Pro Display","Segoe UI",Roboto,sans-serif;min-height:100%}
-html,body{height:100%;overflow:hidden}
-body{position:fixed;top:0;left:0;right:0;bottom:0}
-main{position:absolute;top:0;bottom:0;left:0;right:0;max-width:480px;margin:0 auto;overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:calc(20px + env(safe-area-inset-top,0px)) 18px calc(96px + env(safe-area-inset-bottom,0px))}
+main{max-width:480px;margin:0 auto;padding:calc(20px + env(safe-area-inset-top,0px)) 18px calc(96px + env(safe-area-inset-bottom,0px));min-height:calc(100vh + 110px)}
 html{overscroll-behavior:none}
 h1{font-size:13px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--mute);margin:6px 0 18px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;margin-bottom:14px}
@@ -283,7 +281,7 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar{display:non
 
 <section id="v-prof" hidden>
   <h1>Mój profil</h1>
-  <div class="card"><div class="mute">Konto</div><div class="num" id="uemail" style="font-size:22px;word-break:break-all;margin-top:4px"></div><div class="mute" id="syncst" style="margin-top:8px"></div><div class="mute" style="margin-top:4px;font-size:12px">Wersja 14.10.5</div><div class="mute" id="diag" style="font-size:11px;margin-top:4px;word-break:break-all"></div></div>
+  <div class="card"><div class="mute">Konto</div><div class="num" id="uemail" style="font-size:22px;word-break:break-all;margin-top:4px"></div><div class="mute" id="syncst" style="margin-top:8px"></div><div class="mute" style="margin-top:4px;font-size:12px">Wersja 14.10.6</div><div class="mute" id="diag" style="font-size:11px;margin-top:4px;word-break:break-all"></div></div>
   <button class="mbtn" data-go="emp"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.5 3-6 6-6s6 2.5 6 6M17 5a3.5 3.5 0 010 7M21 20c0-2.5-1.5-4.5-4-5.5"/></svg><span><b>Pracodawcy</b><small id="p-emp"></small></span></button>
   
   <div class="card"><div class="mute">Zapisane dane</div><div id="p-stats" style="margin-top:6px"></div></div>
@@ -402,7 +400,7 @@ window.__start=function(){
   function costSum(){var t=0;monthItems().forEach(function(i){t+=i.amount});return t}
   function hoursMs(){var t=0;monthShifts().forEach(function(s){t+=netMs(s)});return t}
 
-  var hist=[];function go(v,back){if(!back&&v!==view)hist.push(view);view=v;if(v==='cal'&&!back){cur=ym(new Date());selDay=iso(new Date())}['menu','home','hours','costs','emp','cal','sum','prof','set','rep','bal'].forEach(function(n){$('v-'+n).hidden=n!==v});$$('nav button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-go')===v)});document.querySelector('main').scrollTop=0;render()}
+  var hist=[];function go(v,back){if(!back&&v!==view)hist.push(view);view=v;if(v==='cal'&&!back){cur=ym(new Date());selDay=iso(new Date())}['menu','home','hours','costs','emp','cal','sum','prof','set','rep','bal'].forEach(function(n){$('v-'+n).hidden=n!==v});$$('nav button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-go')===v)});window.scrollTo(0,0);render()}
   document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-go]');if(b)go(b.getAttribute('data-go'))});
   function shiftM(d){cur=ym(new Date(+cur.slice(0,4),+cur.slice(5)-1+d,1));render()}
   $$('.mprev').forEach(function(b){b.onclick=function(){shiftM(-1)}});
@@ -769,7 +767,7 @@ window.__start=function(){
     var st=window.navigator.standalone===true||(window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches);
     var ih=window.innerHeight,sh=window.screen.height,gap=0;
     if(st){gap=sh-ih;if(gap<0||gap>120)gap=0}
-    nav.style.bottom=(gap>0?-gap:0)+'px';
+    nav.style.bottom='0px';
     var d=document.getElementById('diag');
     if(d)d.textContent='inner '+ih+' · screen '+sh+' · client '+document.documentElement.clientHeight+' · vv '+(window.visualViewport?Math.round(window.visualViewport.height):'-')+' · gap '+gap+(st?' · app':' · przegladarka');
   }
