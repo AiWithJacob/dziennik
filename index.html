@@ -15,13 +15,15 @@
 <script>try{var __t=localStorage.getItem('dz-theme');if(__t==='light'||__t==='dark')document.documentElement.setAttribute('data-theme',__t);if(localStorage.getItem('dz-anim')==='off')document.documentElement.classList.add('noanim');var __a=localStorage.getItem('dz-accent');if(__a&&__a!=='mint')document.documentElement.setAttribute('data-accent',__a);localStorage.removeItem('dz-style')}catch(e){}</script>
 <style>
 :root{--bg:#f2f5f8;--card:#fff;--ink:#0b1620;--mute:#6b7885;--line:rgba(11,22,32,.09);--acc:#00a389;--bad:#d6304a;--warn:#c27a00;--glass:rgba(255,255,255,.85);
-box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);min-height:calc(100% + env(safe-area-inset-top,0px))}
+box-sizing:border-box}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#07090d;--card:rgba(255,255,255,.05);--ink:#eef3f7;--mute:#7d8a97;--line:rgba(255,255,255,.09);--acc:#5af2c8;--bad:#ff6b81;--warn:#ffc15a;--glass:rgba(12,16,22,.82)}}
 :root[data-theme="dark"]{color-scheme:dark;--bg:#07090d;--card:rgba(255,255,255,.05);--ink:#eef3f7;--mute:#7d8a97;--line:rgba(255,255,255,.09);--acc:#5af2c8;--bad:#ff6b81;--warn:#ffc15a;--glass:rgba(12,16,22,.82)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0}
 body{background:var(--bg);color:var(--ink);font:16px/1.4 system-ui,-apple-system,"SF Pro Display","Segoe UI",Roboto,sans-serif;min-height:100%}
-main{max-width:480px;margin:0 auto;padding:20px 18px calc(96px + env(safe-area-inset-bottom,0px))}
+html,body{height:100%;overflow:hidden}
+body{position:fixed;top:0;left:0;right:0;bottom:0}
+main{position:absolute;top:0;bottom:0;left:0;right:0;max-width:480px;margin:0 auto;overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:calc(20px + env(safe-area-inset-top,0px)) 18px calc(96px + env(safe-area-inset-bottom,0px))}
 html{overscroll-behavior:none}
 h1{font-size:13px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--mute);margin:6px 0 18px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;margin-bottom:14px}
@@ -119,7 +121,7 @@ html.colorful #auth{background:transparent}
 :root[data-accent="cyan"]{--acc:#06b6d4;--onacc:#00181f}:root[data-accent="green"]{--acc:#22c55e;--onacc:#02140a}:root[data-accent="yellow"]{--acc:#eab308;--onacc:#1a1400}:root[data-accent="red"]{--acc:#ef4444;--onacc:#fff}
 html.colorful[data-accent="blue"]{--g1:#0f2a8a;--g2:#1d5fd0;--g3:#0e7fa8}html.colorful[data-accent="cyan"]{--g1:#06394f;--g2:#0a7a99;--g3:#0b6b5a}html.colorful[data-accent="green"]{--g1:#0b4a24;--g2:#14803a;--g3:#0a5a5a}html.colorful[data-accent="yellow"]{--g1:#5c4a05;--g2:#a87a0a;--g3:#7a3a0b}html.colorful[data-accent="orange"]{--g1:#7a2a0b;--g2:#c2561a;--g3:#a8284f}html.colorful[data-accent="red"]{--g1:#6b1414;--g2:#b02a2a;--g3:#7a2a6b}html.colorful[data-accent="pink"]{--g1:#6b1648;--g2:#c0307a;--g3:#6a2fb5}html.colorful[data-accent="violet"]{--g1:#2d1470;--g2:#6a29b5;--g3:#a02c85}
 .pbar{height:10px;border-radius:99px;background:var(--line);overflow:hidden;margin:6px 0 14px}.pbar i{display:block;height:100%;background:var(--acc);border-radius:99px;transition:width .6s}
-@media print{body{background:#fff!important}main{padding:0!important}nav,.topbar,.noprint,.month button{display:none!important}main>section{display:none!important}#v-rep{display:block!important}#v-rep .card{border:0!important;background:#fff!important}*{color:#000!important;animation:none!important;backdrop-filter:none!important}}
+@media print{html,body,main{position:static!important;height:auto!important;overflow:visible!important}body{background:#fff!important}main{padding:0!important}nav,.topbar,.noprint,.month button{display:none!important}main>section{display:none!important}#v-rep{display:block!important}#v-rep .card{border:0!important;background:#fff!important}*{color:#000!important;animation:none!important;backdrop-filter:none!important}}
 @keyframes backin{from{transform:translateX(-36px);opacity:0}to{transform:none;opacity:1}}
 .backin{animation:backin .32s cubic-bezier(.2,.7,.2,1)}
 html,body,*{scrollbar-width:none;-ms-overflow-style:none}
@@ -281,7 +283,7 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar{display:non
 
 <section id="v-prof" hidden>
   <h1>Mój profil</h1>
-  <div class="card"><div class="mute">Konto</div><div class="num" id="uemail" style="font-size:22px;word-break:break-all;margin-top:4px"></div><div class="mute" id="syncst" style="margin-top:8px"></div><div class="mute" style="margin-top:4px;font-size:12px">Wersja 14.10.3</div></div>
+  <div class="card"><div class="mute">Konto</div><div class="num" id="uemail" style="font-size:22px;word-break:break-all;margin-top:4px"></div><div class="mute" id="syncst" style="margin-top:8px"></div><div class="mute" style="margin-top:4px;font-size:12px">Wersja 14.10.4</div></div>
   <button class="mbtn" data-go="emp"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.5 3-6 6-6s6 2.5 6 6M17 5a3.5 3.5 0 010 7M21 20c0-2.5-1.5-4.5-4-5.5"/></svg><span><b>Pracodawcy</b><small id="p-emp"></small></span></button>
   
   <div class="card"><div class="mute">Zapisane dane</div><div id="p-stats" style="margin-top:6px"></div></div>
@@ -400,7 +402,7 @@ window.__start=function(){
   function costSum(){var t=0;monthItems().forEach(function(i){t+=i.amount});return t}
   function hoursMs(){var t=0;monthShifts().forEach(function(s){t+=netMs(s)});return t}
 
-  var hist=[];function go(v,back){if(!back&&v!==view)hist.push(view);view=v;if(v==='cal'&&!back){cur=ym(new Date());selDay=iso(new Date())}['menu','home','hours','costs','emp','cal','sum','prof','set','rep','bal'].forEach(function(n){$('v-'+n).hidden=n!==v});$$('nav button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-go')===v)});window.scrollTo(0,0);render()}
+  var hist=[];function go(v,back){if(!back&&v!==view)hist.push(view);view=v;if(v==='cal'&&!back){cur=ym(new Date());selDay=iso(new Date())}['menu','home','hours','costs','emp','cal','sum','prof','set','rep','bal'].forEach(function(n){$('v-'+n).hidden=n!==v});$$('nav button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-go')===v)});document.querySelector('main').scrollTop=0;render()}
   document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-go]');if(b)go(b.getAttribute('data-go'))});
   function shiftM(d){cur=ym(new Date(+cur.slice(0,4),+cur.slice(5)-1+d,1));render()}
   $$('.mprev').forEach(function(b){b.onclick=function(){shiftM(-1)}});
