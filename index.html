@@ -67,9 +67,9 @@ nav svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.6;st
 .topbar{display:flex;gap:8px;margin:0 0 6px}.topbar select{flex:1;border-radius:999px}.topbar button{width:46px;border-radius:50%}
 .rowf{display:flex;align-items:center;gap:10px;margin:8px 0}.rowf input[type=checkbox]{width:22px;height:22px;accent-color:var(--acc);padding:0}
 #auth{position:fixed;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;background:var(--bg);padding:20px}.authbox{width:100%;max-width:380px;display:grid;gap:10px}.seg{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px}.seg button{padding:11px;border-radius:999px;color:var(--mute)}.seg button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}body.locked main,body.locked nav{display:none}
-@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes rise{from{opacity:0}to{opacity:1}}
 @keyframes glow{50%{box-shadow:0 8px 46px color-mix(in srgb,var(--c) 62%,transparent)}}
-section:not([hidden])>*,.authbox>*{animation:rise .55s cubic-bezier(.2,.7,.2,1) both}
+section:not([hidden])>*,.authbox>*{animation:rise .3s ease both}
 section:not([hidden])>*:nth-child(2),.authbox>*:nth-child(2){animation-delay:.06s}
 section:not([hidden])>*:nth-child(3),.authbox>*:nth-child(3){animation-delay:.12s}
 section:not([hidden])>*:nth-child(4),.authbox>*:nth-child(4){animation-delay:.18s}
