@@ -15,13 +15,13 @@
 <script>try{var __t=localStorage.getItem('dz-theme');if(__t==='light'||__t==='dark')document.documentElement.setAttribute('data-theme',__t);if(localStorage.getItem('dz-anim')==='off')document.documentElement.classList.add('noanim');var __a=localStorage.getItem('dz-accent');if(__a&&__a!=='mint')document.documentElement.setAttribute('data-accent',__a);localStorage.removeItem('dz-style')}catch(e){}</script>
 <style>
 :root{--bg:#f2f5f8;--card:#fff;--ink:#0b1620;--mute:#6b7885;--line:rgba(11,22,32,.09);--acc:#00a389;--bad:#d6304a;--warn:#c27a00;--glass:rgba(255,255,255,.85);
-box-sizing:border-box}
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);min-height:calc(100% + env(safe-area-inset-top,0px))}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#07090d;--card:rgba(255,255,255,.05);--ink:#eef3f7;--mute:#7d8a97;--line:rgba(255,255,255,.09);--acc:#5af2c8;--bad:#ff6b81;--warn:#ffc15a;--glass:rgba(12,16,22,.82)}}
 :root[data-theme="dark"]{color-scheme:dark;--bg:#07090d;--card:rgba(255,255,255,.05);--ink:#eef3f7;--mute:#7d8a97;--line:rgba(255,255,255,.09);--acc:#5af2c8;--bad:#ff6b81;--warn:#ffc15a;--glass:rgba(12,16,22,.82)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0}
 body{background:var(--bg);color:var(--ink);font:16px/1.4 system-ui,-apple-system,"SF Pro Display","Segoe UI",Roboto,sans-serif;min-height:100%}
-main{max-width:480px;margin:0 auto;padding:calc(20px + env(safe-area-inset-top,0px)) 18px calc(96px + env(safe-area-inset-bottom,0px))}
+main{max-width:480px;margin:0 auto;padding:20px 18px calc(96px + env(safe-area-inset-bottom,0px))}
 html{overscroll-behavior:none}
 h1{font-size:13px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--mute);margin:6px 0 18px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;margin-bottom:14px}
@@ -281,7 +281,7 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar{display:non
 
 <section id="v-prof" hidden>
   <h1>Mój profil</h1>
-  <div class="card"><div class="mute">Konto</div><div class="num" id="uemail" style="font-size:22px;word-break:break-all;margin-top:4px"></div><div class="mute" id="syncst" style="margin-top:8px"></div></div>
+  <div class="card"><div class="mute">Konto</div><div class="num" id="uemail" style="font-size:22px;word-break:break-all;margin-top:4px"></div><div class="mute" id="syncst" style="margin-top:8px"></div><div class="mute" style="margin-top:4px;font-size:12px">Wersja 14.10.3</div></div>
   <button class="mbtn" data-go="emp"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.5 3-6 6-6s6 2.5 6 6M17 5a3.5 3.5 0 010 7M21 20c0-2.5-1.5-4.5-4-5.5"/></svg><span><b>Pracodawcy</b><small id="p-emp"></small></span></button>
   
   <div class="card"><div class="mute">Zapisane dane</div><div id="p-stats" style="margin-top:6px"></div></div>
