@@ -283,7 +283,7 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar{display:non
 
 <section id="v-prof" hidden>
   <h1>Mój profil</h1>
-  <div class="card"><div class="mute">Konto</div><div class="num" id="uemail" style="font-size:22px;word-break:break-all;margin-top:4px"></div><div class="mute" id="syncst" style="margin-top:8px"></div><div class="mute" style="margin-top:4px;font-size:12px">Wersja 14.10.4</div></div>
+  <div class="card"><div class="mute">Konto</div><div class="num" id="uemail" style="font-size:22px;word-break:break-all;margin-top:4px"></div><div class="mute" id="syncst" style="margin-top:8px"></div><div class="mute" style="margin-top:4px;font-size:12px">Wersja 14.10.5</div><div class="mute" id="diag" style="font-size:11px;margin-top:4px;word-break:break-all"></div></div>
   <button class="mbtn" data-go="emp"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3.5 3-6 6-6s6 2.5 6 6M17 5a3.5 3.5 0 010 7M21 20c0-2.5-1.5-4.5-4-5.5"/></svg><span><b>Pracodawcy</b><small id="p-emp"></small></span></button>
   
   <div class="card"><div class="mute">Zapisane dane</div><div id="p-stats" style="margin-top:6px"></div></div>
@@ -760,6 +760,27 @@ window.__start=function(){
     if(recovering)return;
     if(s)begin(s.user);else $('auth').hidden=false;
   },function(){$('auth').hidden=false});
+})();
+</script>
+<script>
+(function(){
+  var nav=document.querySelector('nav');
+  function fit(){
+    var st=window.navigator.standalone===true||(window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches);
+    var ih=window.innerHeight,sh=window.screen.height,gap=0;
+    if(st){gap=sh-ih;if(gap<0||gap>120)gap=0}
+    nav.style.bottom=(gap>0?-gap:0)+'px';
+    var d=document.getElementById('diag');
+    if(d)d.textContent='inner '+ih+' · screen '+sh+' · client '+document.documentElement.clientHeight+' · vv '+(window.visualViewport?Math.round(window.visualViewport.height):'-')+' · gap '+gap+(st?' · app':' · przegladarka');
+  }
+  window.__fit=fit;
+  window.addEventListener('resize',fit);
+  window.addEventListener('orientationchange',function(){setTimeout(fit,300)});
+  window.addEventListener('pageshow',fit);
+  document.addEventListener('visibilitychange',fit);
+  document.addEventListener('click',function(){setTimeout(fit,50);setTimeout(fit,400)});
+  setInterval(fit,1000);
+  fit();
 })();
 </script>
 </body>
