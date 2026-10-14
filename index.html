@@ -134,17 +134,18 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar{display:non
   <div class="authbox">
     <h1 style="text-align:center;margin-bottom:4px">Dziennik</h1>
     <div class="num mid" style="text-align:center;margin-bottom:20px">Witaj</div>
-    <div id="a-main" style="display:grid;gap:10px">
-      <div class="seg"><button id="a-login" class="on">Logowanie</button><button id="a-reg">Rejestracja</button></div>
-      <input id="a-email" type="email" inputmode="email" autocomplete="email" placeholder="E-mail">
-      <input id="a-pw" type="password" autocomplete="current-password" placeholder="Hasło">
-      <div id="a-pw2w" hidden><input id="a-pw2" type="password" autocomplete="new-password" placeholder="Powtórz hasło"></div>
+    <form id="a-main" style="display:grid;gap:10px" autocomplete="on" novalidate>
+      <div class="seg"><button type="button" id="a-login" class="on">Logowanie</button><button type="button" id="a-reg">Rejestracja</button></div>
+      <input id="a-email" name="email" type="email" inputmode="email" autocomplete="username" placeholder="E-mail">
+      <input id="a-pw" name="password" type="password" autocomplete="current-password" placeholder="Hasło">
+      <div id="a-pw2w" hidden><input id="a-pw2" name="password2" type="password" autocomplete="new-password" placeholder="Powtórz hasło"></div>
       <button class="ghost" id="a-show" type="button">Pokaż hasło</button>
+      <label class="rowf" style="margin:2px 0"><input id="a-rem" type="checkbox" checked><span>Zostań zalogowany</span></label>
       <div id="a-err" class="neg" style="min-height:20px;font-size:14px"></div>
-      <button class="primary" id="a-go">Zaloguj się</button>
+      <button class="primary" id="a-go" type="submit">Zaloguj się</button>
       <button class="ghost" id="a-forgot" type="button">Nie pamiętasz hasła?</button>
       <div class="mute" style="text-align:center;margin-top:6px">Twoje dane są zapisywane w chmurze i działają na każdym telefonie.</div>
-    </div>
+    </form>
     <div id="a-rec" hidden style="display:grid;gap:10px">
       <div class="mute" style="text-align:center">Ustaw nowe hasło</div>
       <input id="a-newpw" type="password" autocomplete="new-password" placeholder="Nowe hasło (min. 6 znaków)">
@@ -656,7 +657,11 @@ window.__start=function(){
   var $=function(i){return document.getElementById(i)};
   var mode='login',uid=null,timer=null,pending=null,started=false,recovering=location.hash.indexOf('type=recovery')>=0;
   if(!window.supabase){$('auth').hidden=false;$('a-err').textContent='Nie udało się wczytać logowania. Sprawdź internet i odśwież stronę.';return}
-  var sb=window.supabase.createClient(SB_URL,SB_KEY);
+  function useSess(){try{return localStorage.getItem('dz-remember')==='0'}catch(e){return false}}
+  var STG={getItem:function(k){try{return (useSess()?sessionStorage:localStorage).getItem(k)}catch(e){return null}},
+           setItem:function(k,v){try{(useSess()?sessionStorage:localStorage).setItem(k,v)}catch(e){}},
+           removeItem:function(k){try{localStorage.removeItem(k);sessionStorage.removeItem(k)}catch(e){}}};
+  var sb=window.supabase.createClient(SB_URL,SB_KEY,{auth:{storage:STG,persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
   function sync(t){var e=$('syncst');if(e)e.textContent=t}
   function lkey(){return 'dz-cloud-'+uid}
   function flush(){
@@ -698,7 +703,8 @@ window.__start=function(){
   $('a-reg').onclick=function(){setMode('reg')};
   $('a-show').onclick=function(){var t=$('a-pw').type==='password'?'text':'password';$('a-pw').type=t;$('a-pw2').type=t;$('a-show').textContent=t==='text'?'Ukryj hasło':'Pokaż hasło'};
   function busy(b){$('a-go').disabled=b;$('a-go').style.opacity=b?.6:1}
-  $('a-go').onclick=function(){
+  function doAuth(){
+    try{localStorage.setItem('dz-remember',$('a-rem').checked?'1':'0')}catch(e){}
     var email=$('a-email').value.trim().toLowerCase(),pw=$('a-pw').value,err=$('a-err');
     err.className='neg';err.textContent='';
     if(!/^\S+@\S+\.\S+$/.test(email)){err.textContent='Podaj poprawny e-mail.';return}
@@ -720,7 +726,8 @@ window.__start=function(){
         begin(r.data.user);
       },function(){busy(false);err.textContent='Brak połączenia z internetem.'});
     }
-  };
+  }
+  $('a-main').onsubmit=function(e){e.preventDefault();doAuth()};
   $('a-forgot').onclick=function(){
     var email=$('a-email').value.trim().toLowerCase(),err=$('a-err');err.className='neg';err.textContent='';
     if(!/^\S+@\S+\.\S+$/.test(email)){err.textContent='Wpisz swój e-mail powyżej, a potem kliknij ponownie.';return}
